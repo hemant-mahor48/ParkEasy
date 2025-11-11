@@ -1,0 +1,42 @@
+services:
+  postgres:
+    container_name: ms_plsql
+    image: postgres
+    environment:
+      POSTGRES_USER: hemant
+      POSTGRES_PASSWORD: parkeasy48
+      POSTGRES_DB: parkeasydb
+      PGDATA: /var/lib/postgresql/data
+      TZ: Asia/Kolkata
+    volumes:
+      - postgres:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - microservices-net
+    restart: unless-stopped
+
+  pgadmin:
+    container_name: ms_pgadmin
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin@pgadmin.org}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+      TZ: Asia/Kolkata
+    volumes:
+      - pgadmin:/var/lib/pgadmin
+    ports:
+      - "5000:80"
+    networks:
+      - microservices-net
+    restart: unless-stopped
+
+networks:
+  microservices-net:
+    driver: bridge
+
+volumes:
+  postgres:
+  pgadmin:
+  mongo:
