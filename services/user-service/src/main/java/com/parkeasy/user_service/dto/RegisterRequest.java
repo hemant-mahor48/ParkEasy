@@ -29,5 +29,5 @@ public class RegisterRequest {
     @Pattern(regexp = "^[0-9]{10}$", message = "Phone number must be 10 digits")
     private String phone;
 
-    private Role role = Role.USER;
+    private Role role;
 }

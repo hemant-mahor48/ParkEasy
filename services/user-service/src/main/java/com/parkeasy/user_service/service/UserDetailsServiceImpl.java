@@ -1,6 +1,7 @@
 package com.parkeasy.user_service.service;
 
 
+import com.parkeasy.user_service.model.CustomUserDetails;
 import com.parkeasy.user_service.model.User;
 import com.parkeasy.user_service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,14 +26,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found with email: " + email));
 
-        return org.springframework.security.core.userdetails.User.builder()
-                .username(user.getEmail())
-                .password(user.getPassword())
-                .authorities(Collections.singletonList(
+        return new CustomUserDetails(
+                user,
+                Collections.singletonList(
                         new SimpleGrantedAuthority("ROLE_" + user.getRole().name())
-                ))
-                .accountExpired(false)
-                .credentialsExpired(false)
-                .build();
+                )
+        );
     }
+
 }

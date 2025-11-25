@@ -46,11 +46,19 @@ public class UserController {
         return ResponseEntity.ok(ApiResponse.success("Account deleted successfully", null));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<ApiResponse<UserResponse>> getUserById(@PathVariable Long id) {
         log.info("Fetching user by ID: {}", id);
 
         UserResponse user = userService.getUserById(id);
+        return ResponseEntity.ok(ApiResponse.success("User fetched successfully", user));
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<ApiResponse<UserResponse>> getUserByEmail(@PathVariable String email) {
+        log.info("Fetching user by email: {}", email);
+
+        UserResponse user = userService.getUserByEmail(email);
         return ResponseEntity.ok(ApiResponse.success("User fetched successfully", user));
     }
 }

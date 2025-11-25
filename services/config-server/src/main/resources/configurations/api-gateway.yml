@@ -1,0 +1,23 @@
+server:
+  port: 8222
+
+jwt:
+  secret: "z3Yf8JpT!sK9QvLmN#2aR6wB@eH7xU4dP0oC5jV8gT1zM9nF2rQ6kYbE3uS7hW"
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/api/v1/auth/**, /api/v1/users/**
+
+        - id: parking-lot-service
+          uri: lb://PARKING-LOT-SERVICE
+          predicates:
+            - Path=/api/v1/parking-lots/**

@@ -26,7 +26,7 @@ public class User {
     private String phone;
 
     @Enumerated(EnumType.STRING)
-    private Role role = Role.USER;
+    private Role role;
 
     @CreationTimestamp
     private LocalDateTime createdAt;
