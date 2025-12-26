@@ -1,0 +1,43 @@
+spring:
+  application:
+    name: eureka-server
+  jpa:
+    show-sql: false
+
+server:
+  port: 8761
+  servlet:
+    context-path: /
+
+eureka:
+  instance:
+    hostname: eureka
+    prefer-ip-address: false
+    lease-renewal-interval-in-seconds: 10
+    lease-expiration-duration-in-seconds: 30
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+    service-url:
+      defaultZone: http://eureka:8761/eureka/
+  server:
+    enable-self-preservation: false
+    eviction-interval-timer-in-ms: 1000
+    renewal-percent-threshold: 0.85
+    expected-client-renewal-interval-seconds: 30
+
+logging:
+  level:
+    root: INFO
+    com.parkeasy: DEBUG
+    com.netflix.eureka: INFO
+    com.netflix.discovery: INFO
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      show-details: always
